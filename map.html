@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Google Maps API 叢集標記範例</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy5_SjUbRXayyiYVb9QaQSlRUW6CSM5Io"></script>
+    <script src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+</head>
+
+<body>
+    <div id="map" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        const locations = [
+            { lat: 25.048787, lng: 121.517071 },
+            { lat: 25.06411641702556, lng: 121.52625940615967 },
+            { lat: 25.05952867154747, lng: 121.52604498592476 },
+            { lat: 25.056029590301574, lng: 121.52621678821053 },
+            { lat: 25.051480781018938, lng: 121.5258736157122 },
+            { lat: 25.046776487068026, lng: 121.5259166976422 },
+            { lat: 25.04397721653522, lng: 121.52561639972627 },
+            { lat: 25.044171396938456, lng: 121.5213250555875 },
+            { lat: 25.043898950652075, lng: 121.51759158600903 },
+            { lat: 25.04393841862036, lng: 121.5302081009153 },
+            { lat: 25.043588457229504, lng: 121.5302081009153 },
+            { lat: 25.04393841862036, lng: 121.5341560931374 },
+        ];
+
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 14,
+                center: { lat: 25.046431525811414, lng: 121.51747250593631 }
+            });
+
+            const img = "img/placeholder.png";
+            for (let i = 0; i < locations.length; i++) {
+                const marker = new google.maps.Marker({
+                    position: locations[i],
+                    map: map,
+                    tittle: "地點i",
+                    icon: img
+                });
+            }
+
+            // 創建標記
+            const markers = locations.map((position, i) => {
+                return new google.maps.Marker({
+                    position,
+                    label: `${i + 1}` // 使用數字作為標記的標籤
+                });
+            });
+
+            // 創建叢集標記
+            const markerCluster = new markerClusterer.MarkerClusterer({ map, markers });
+        }
+
+        // 載入地圖
+        initMap();
+    </script>
+</body>
+
+</html>
